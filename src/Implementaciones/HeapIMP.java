@@ -7,9 +7,9 @@ import API.HeapTDA;
 public class HeapIMP implements HeapTDA {
 
 
-class Elemento {
-    int valor;
-    int prioridad;
+public class Elemento {
+    public int valor;
+    public int prioridad;
 }
 
 Elemento[] heap;  // Reservo el nombre para el arreglo de objetos del tipo Elemento (el heap)
@@ -51,21 +51,9 @@ public void Desacolar(){
     intercambiarHaciaAbajo(0);  // se invoca intercambiarHaciaAbajo con el indice 0 (elemento) para que vuelva a acomodar el ultimo elemento
 }
 
-public void HeapSort() {
-		
-    HeapIMP copia = new HeapIMP();
-    copia.inicializarHeap();
 
-    for (int i = 0; i < cant; i++) {
-        copia.Acolar(heap[i].valor ,heap[i].prioridad);
-    }
+    
 
-    System.out.println("Elementos en orden de valor:");
-    while (!copia.ColaVacia()) {
-        System.out.println("Valor: " + copia.primero());
-        copia.Desacolar();
-    }
-}
 
 
 public boolean ColaVacia(){
@@ -74,14 +62,16 @@ public boolean ColaVacia(){
 
 
 
-@Override
-public int primero(){
-    if (ColaVacia()) {
-        return -1;
-    }
-    return heap[0].valor;
 
-}
+public Elemento primero() {
+    if (ColaVacia()) {
+        return null;
+    }
+    return heap[0];
+} 
+
+
+
 
 private void intercambiar (int i, int j) { // Intercambia de lugar un nodo padre con su hijo
     Elemento aux = heap[i]; // se crea un objeto con referencia al guardado en la posicion i del heap (funciona como auxiliar)
@@ -107,18 +97,18 @@ private void intercambiarHaciaArriba (int i) { // Intercambia el lugar del nodo 
 private void intercambiarHaciaAbajo(int i){
     int hijoIzq = 2 * i + 1;
     int hijoDer = 2 * i + 2; // guardan la posicion del hijo izquierdo y derecho respectivamente
-    int menor = i;  // se inicializa menor como el nodo actual (recibido como parametro)
+    int mayor = i;  // se inicializa mayor como el nodo actual (recibido como parametro)
 
-    if(hijoIzq < cant && heap[hijoIzq].prioridad < heap[menor].prioridad) {   // si la prioridad del hijo izquierdo de la pos (menor) es menor que la de menor propiamente dicho, menor pasa a ser hijoIzq 
-        menor = hijoIzq;
+    if(hijoIzq < cant && heap[hijoIzq].prioridad > heap[mayor].prioridad) {   // si la prioridad del hijo izquierdo de la pos (mayor) es mayor que la de mayor propiamente dicho, mayor pasa a ser hijoIzq 
+        mayor = hijoIzq;
     }
 
-    if (hijoDer < cant && heap[hijoDer].prioridad < heap[menor].prioridad) {
-        menor = hijoDer;  // mismo proeso para hijo derecho
+    if (hijoDer < cant && heap[hijoDer].prioridad > heap[mayor].prioridad) {
+        mayor = hijoDer;  // mismo proeso para hijo derecho
 }
-    if (menor != i) {
-        intercambiar(i, menor);
-        intercambiarHaciaAbajo(menor);  // se vuelve a repetir el proceso con el elemento que fue intercambiado con sus nuevos hijos
+    if (mayor != i) {
+        intercambiar(i, mayor);
+        intercambiarHaciaAbajo(mayor);  // se vuelve a repetir el proceso con el elemento que fue intercambiado con sus nuevos hijos
     }
 }
 
