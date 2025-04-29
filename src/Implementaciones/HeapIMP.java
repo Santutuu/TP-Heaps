@@ -33,20 +33,22 @@ public void Acolar(int x, int prioridad){
     nuevo.prioridad = prioridad;
 
     heap[cant] = nuevo; 
+    
+    intercambiarHaciaArriba(cant);
 
+    cant++;
 
 }
 
 @Override
 public void Desacolar(){
-    if (cant == 0) return;
+    if (ColaVacia()) return;
 
-    heap[0] = heap[cant - 1];
+    heap[0] = heap[cant - 1];  // se pisa el primer elemento (elemento a eliminar) con el ultimo
 
-    cant--;
+    cant--;                    // se reduce el tamanio del arreglo.
 
-
-
+    intercambiarHaciaAbajo(0);  // se invoca intercambiarHaciaAbajo con el indice 0 (elemento) para que vuelva a acomodar el ultimo elemento
 }
 
 public void HeapSort() {
@@ -74,7 +76,7 @@ public boolean ColaVacia(){
 
 @Override
 public int primero(){
-    if (cant == 0) {
+    if (ColaVacia()) {
         return -1;
     }
     return heap[0].valor;
@@ -87,7 +89,7 @@ private void intercambiar (int i, int j) { // Intercambia de lugar un nodo padre
     heap[j] = aux;
 }
 
-private void intercambiarHaciaArriba (int i) {
+private void intercambiarHaciaArriba (int i) { // Intercambia el lugar del nodo actual con el padre en caso de que este ultimo sea mayor.
     while(i > 0){
         int padre = (i - 1) / 2;
 
@@ -104,23 +106,23 @@ private void intercambiarHaciaArriba (int i) {
 
 private void intercambiarHaciaAbajo(int i){
     int hijoIzq = 2 * i + 1;
-    int hijoDer = 2 * i + 2;
-    int mayor = i;
+    int hijoDer = 2 * i + 2; // guardan la posicion del hijo izquierdo y derecho respectivamente
+    int menor = i;  // se inicializa menor como el nodo actual (recibido como parametro)
 
-    if(hijoIzq < cant && heap[hijoIzq].prioridad > heap[mayor].prioridad) {
-        mayor = hijoIzq;
+    if(hijoIzq < cant && heap[hijoIzq].prioridad < heap[menor].prioridad) {   // si la prioridad del hijo izquierdo de la pos (menor) es menor que la de menor propiamente dicho, menor pasa a ser hijoIzq 
+        menor = hijoIzq;
     }
 
-    if (hijoDer < cant && heap[hijoDer].prioridad > heap[mayor].prioridad) {
-        mayor = hijoDer;
-
-    if (mayor != i) {
-        intercambiar(i, mayor);
-        intercambiarHaciaAbajo(mayor);
+    if (hijoDer < cant && heap[hijoDer].prioridad < heap[menor].prioridad) {
+        menor = hijoDer;  // mismo proeso para hijo derecho
+}
+    if (menor != i) {
+        intercambiar(i, menor);
+        intercambiarHaciaAbajo(menor);  // se vuelve a repetir el proceso con el elemento que fue intercambiado con sus nuevos hijos
     }
 }
 
 
 }
-}
+
 
