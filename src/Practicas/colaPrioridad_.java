@@ -3,19 +3,12 @@ package Practicas;
 import Implementaciones.HeapIMP;
 
 
-public class colaPriorida {
+public class colaPrioridad_ {
 
-	public class Elemento {
-		public int valor;
-		public int prioridad;
-	}
-    
-	public static void mostrarCola (int valor, int prioridad) {
-
+	public static void mostrarArreglo (int valor, int prioridad) {
 		System.out.println("Valor: "+valor+"  Prioridad: "+prioridad);
-	
 	}
-
+	
     public static void colaPrioridad (HeapIMP h) {
 		HeapIMP.Elemento prim;
 		
@@ -26,14 +19,12 @@ public class colaPriorida {
 			prim = h.primero();
             p = prim.prioridad;
             v = prim.valor;
-			mostrarCola(v, p);
+			mostrarArreglo(v, p);
            
             h.Desacolar();
         }
 		
 	}
-
-
     public static void main(String[] args) {
 		
 		HeapIMP heap = new HeapIMP();
@@ -56,4 +47,15 @@ public class colaPriorida {
 	}
 
 }
+	
+/*
+ Costos de los metodos de cola con Heap:
+    Primero() // O(1)
+	Acolar()  // O(logn)
+	Desacolar() // O(logn)
+	ColaVacia() // O(1)
+ */
+
+
+
 
