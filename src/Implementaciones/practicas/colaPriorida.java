@@ -9,7 +9,13 @@ public class usoHeap {
 		int prioridad;
 	}
     
-    public static void mostrarHeap (HeapIMP h) {
+	public static void mostrarCola (int valor, int prioridad) {
+
+		System.out.println("Valor: "+valor+"  Prioridad: "+prioridad);
+	
+	}
+
+    public static void colaPrioridad (HeapIMP h) {
 		HeapIMP.Elemento prim;
 		
 		System.out.println(h.primero());
@@ -19,7 +25,8 @@ public class usoHeap {
 			prim = h.primero();
             p = prim.prioridad;
             v = prim.valor;
-            System.out.println("prioridad: "+p+ " valor: "+v);
+			mostrarCola(v, p);
+           
             h.Desacolar();
         }
 		
@@ -42,7 +49,7 @@ public class usoHeap {
 		heap.Acolar(35, 10);
         
 		System.out.println(heap.ColaVacia());
-        mostrarHeap(heap);
+        colaPrioridad(heap);
 	
 		
 	}
