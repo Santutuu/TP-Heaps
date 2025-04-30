@@ -6,7 +6,6 @@ import API.HeapTDA;
 
 public class HeapIMP implements HeapTDA {
 
-
 public class Elemento {
     public int valor;
     public int prioridad;
@@ -51,16 +50,9 @@ public void Desacolar(){
     intercambiarHaciaAbajo(0);  // se invoca intercambiarHaciaAbajo con el indice 0 (elemento) para que vuelva a acomodar el ultimo elemento
 }
 
-
-    
-
-
-
 public boolean ColaVacia(){
     return (cant == 0);
 }
-
-
 
 
 public Elemento primero() {
@@ -71,15 +63,20 @@ public Elemento primero() {
 } 
 
 
-
-
-private void intercambiar (int i, int j) { // Intercambia de lugar un nodo padre con su hijo
+private void intercambiar (int i, int j) {
+    /* 
+    Intercambia de lugar un nodo padre con su hijo
+    */
     Elemento aux = heap[i]; // se crea un objeto con referencia al guardado en la posicion i del heap (funciona como auxiliar)
     heap[i] = heap[j]; 
     heap[j] = aux;
 }
 
-private void intercambiarHaciaArriba (int i) { // Intercambia el lugar del nodo actual con el padre en caso de que este ultimo sea mayor.
+private void intercambiarHaciaArriba (int i) { 
+    /*
+    Intercambia el lugar del nodo actual con el padre en caso de que este ultimo sea mayor.
+    Este proceso se aplica recursivamente hasta que el elemento este ubicado correctamente segun su prioridad o i = 0.
+    */
     while(i > 0){
         int padre = (i - 1) / 2;
 
@@ -95,9 +92,14 @@ private void intercambiarHaciaArriba (int i) { // Intercambia el lugar del nodo 
 
 
 private void intercambiarHaciaAbajo(int i){
+ /*
+ * Reorganiza el heap hacia abajo a partir del índice dado.
+ * Compara el elemento en la posición 'i' con sus hijos y lo intercambia con el de mayor prioridad si corresponde.
+ * Este proceso se repite recursivamente hasta que se restaure la propiedad de heap.
+ */
     int hijoIzq = 2 * i + 1;
     int hijoDer = 2 * i + 2; // guardan la posicion del hijo izquierdo y derecho respectivamente
-    int mayor = i;  // se inicializa mayor como el nodo actual (recibido como parametro)
+    int mayor = i;  // se inicializa mayor como el nodo actual (recibido como parametro (0 en la primer interaccion))
 
     if(hijoIzq < cant && heap[hijoIzq].prioridad > heap[mayor].prioridad) {   // si la prioridad del hijo izquierdo de la pos (mayor) es mayor que la de mayor propiamente dicho, mayor pasa a ser hijoIzq 
         mayor = hijoIzq;

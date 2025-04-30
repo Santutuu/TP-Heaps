@@ -1,12 +1,13 @@
-package Implementaciones.practicas;
+package Practicas;
 
 import Implementaciones.HeapIMP;
 
-public class usoHeap {
 
-	class Elemento {
-		int valor;
-		int prioridad;
+public class colaPriorida {
+
+	public class Elemento {
+		public int valor;
+		public int prioridad;
 	}
     
 	public static void mostrarCola (int valor, int prioridad) {
